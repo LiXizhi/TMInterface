@@ -29,8 +29,6 @@ namespace ParaEngine
 }
 extern ParaEngine::IParaEngineCore* GetCoreInterface();
 
-#ifdef WIN32
-
 #ifdef APP_LOG
 #undef APP_LOG
 #endif
@@ -42,9 +40,5 @@ extern ParaEngine::IParaEngineCore* GetCoreInterface();
 
 #define SERVICE_LOG(logger, level, message) APP_LOG(message)
 #define SERVICE_LOG1(logger, message, ...) OUTPUT_LOG(message, ## __VA_ARGS__);
-
-#else
-#include <util/LogService.h>
-#endif
 
 using namespace std;

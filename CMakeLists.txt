@@ -5,7 +5,9 @@
 
 cmake_minimum_required (VERSION 3.3)
 PROJECT(TMInterface)
-set(CMAKE_CXX_STANDARD 11)
+
+set (CMAKE_CXX_STANDARD 11)
+set (CMAKE_C_STANDARD 11)
 
 if ("$ENV{NPLRUNTIME_ROOT}" STREQUAL "")
 	message(FATAL_ERROR "NPLRUNTIME_ROOT environment variable not set. Set it with:  export NPLRUNTIME_ROOT=/mnt/d/lxzsrc/NPLRuntime")
@@ -14,8 +16,9 @@ else()
 endif()
 
 set(Boost_USE_MULTITHREADED ON)
-set(Boost_USE_STATIC_LIBS   ON)
-set(Boost_USE_STATIC_RUNTIME ON)
+#set(Boost_USE_STATIC_LIBS   ON)
+#set(Boost_USE_STATIC_RUNTIME ON)
+
 
 # Add more boost components here
 find_package( Boost 1.55 REQUIRED COMPONENTS thread date_time filesystem system chrono signals serialization iostreams regex) 
@@ -77,11 +80,14 @@ link_libraries( ${LINK_LIBRARIES}
 	${Boost_LIBRARIES} 
 	pthread
 )
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fPIC")
+SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -fPIC")
 endif(WIN32)
 
-#ADD_EXECUTABLE(TMInterface ${TMInterface_SRCS})
+
 
 ADD_LIBRARY(TMInterface SHARED ${TMInterface_SRCS})
+
 
 if(MSVC)
 ADD_CUSTOM_COMMAND(
